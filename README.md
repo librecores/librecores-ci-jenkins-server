@@ -13,6 +13,15 @@ This repository contains backend code and documentation for the [LibreCores CI i
 The instance is **under construction** now.
 In the case of any questions, please use bugtracker in this GitHub project.
 
+## GitHub Integration
+
+We have a [librecores-ci-bot](https://github.com/librecores-ci-bot), which allows integrating with GitHub projects.
+
+Commonly it requires the following permissions:
+* Read-only - for accessing repos
+* Write permission - for commenting and approving pull requests/commits
+* Webhook - for automated hook management within repo/organization (not really required since project admins can setup hooks on their own)
+
 ## Contacts
 
 * [Oleg Nenashev](https://github.com/oleg-nenashev) - Instance maintainer: CI instance itself
