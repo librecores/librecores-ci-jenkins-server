@@ -8,10 +8,14 @@
 
 This repository contains backend code and documentation for the [LibreCores CI instance](https://ci.librecores.org/).
 
-## Current state
+## Current status
 
 The instance is **under construction** now.
 In the case of any questions, please use bugtracker in this GitHub project.
+
+Status overview from [ORCONF2016](http://orconf.org/):
+* [Slides](https://speakerdeck.com/onenashev/orconf2016-librecores-ci-project-overview)
+* Video: Coming soon
 
 ## GitHub Integration
 
