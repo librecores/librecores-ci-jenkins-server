@@ -13,6 +13,7 @@ import org.jenkinsci.plugins.workflow.libs.FolderLibraries
 import org.jenkinsci.plugins.workflow.libs.LibraryConfiguration
 import org.jenkinsci.plugins.workflow.libs.SCMSourceRetriever
 import org.jenkinsci.plugins.workflow.job.WorkflowJob
+import org.librecores.PipelineLibrary
 
 println("=== Initialize the Production folder")
 if (Jenkins.instance.getItem("Production") != null) {
@@ -21,15 +22,7 @@ if (Jenkins.instance.getItem("Production") != null) {
 }
 
 def folder = Jenkins.instance.createProject(Folder.class, "Production")
-
-// Include https://github.com/jenkins-infra/pipeline-library
-def pipelineLibrarySource = new GitSCMSource("pipeline-library", "https://github.com/jenkins-infra/pipeline-library.git", null, null, null, false)
-LibraryConfiguration lc = new LibraryConfiguration("pipeline-library", new SCMSourceRetriever(pipelineLibrarySource))
-lc.with {
-    implicit = true
-    defaultVersion = "master"
-}
-folder.addProperty(new FolderLibraries([lc]))
+PipelineLibrary.forFolder(folder, [PipelineLibrary.LCCI_PIPELINE_LIB])
 FolderOwnershipHelper.setOwnership(folder, new OwnershipDescription(true, "admin"))
 
 // Add a sample project
