@@ -22,6 +22,54 @@ Commonly it requires the following permissions:
 * Write permission - for commenting and approving pull requests/commits
 * Webhook - for automated hook management within repo/organization (not really required since project admins can setup hooks on their own)
 
+## Docker Dev Environment
+
+### Usage
+
+Run image:
+
+```shell
+docker run --rm --name ci-jenkins-io-dev -v maven-repo:/root/.m2 -e DEV_HOST=${CURRENT_HOST} -p 8080:8080 -p 50000:50000 librecores/librecores-ci-dev
+```
+
+Jenkins will need to connect to the Docker host to run agents.
+If you use Docker for Mac, use `-Dio.jenkins.dev.host` and additional `socat` image for forwarding.
+
+```shell
+docker run -d -v /var/run/docker.sock:/var/run/docker.sock -p 2376:2375 bobrik/socat TCP4-LISTEN:2375,fork,reuseaddr UNIX-CONNECT:/var/run/docker.sock
+```
+
+#### Developing Pipeline libraries
+
+In the _Development_ folder there is a _PipelineLib_ folder, which allows local building and testing of the library.
+This folder can be mapped to a local repository in order to develop the library without committing changes: 
+
+```shell
+docker run --rm --name librecores-ci-dev -v maven-repo:/root/.m2 -v ${MY_PIPELINE_LIBRARY_DIR}:/var/jenkins_home/pipeline-library -v ${MY_OTHER_PIPELINE_LIBS_DIRS}:/var/jenkins_home/pipeline-libs -e DEV_HOST=${CURRENT_HOST} -p 8080:8080 -p 50000:50000 librecores/librecores-ci-dev
+```
+
+Once started, you can just start editing the Pipeline library locally.
+On every job start the changes will be reflected in the directory without committing anything.
+
+##### Debugging Master
+
+In order to debug the master, use the `-e DEBUG=true -p 5005:5005` when starting the container.
+Jenkins will be suspended on the startup in such case.
+
+### Building images
+
+#### Master
+
+Build image:
+
+```shell
+docker build -t librecores/librecores-ci-dev .
+```
+
+#### Build Agents 
+
+See other Docker repositories in the LibreCores organization.
+
 ## Contacts
 
 * [Oleg Nenashev](https://github.com/oleg-nenashev) - Instance maintainer: CI instance itself
