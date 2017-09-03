@@ -12,6 +12,7 @@ import org.jenkinsci.plugins.workflow.job.WorkflowJob
 import org.jenkinsci.plugins.workflow.libs.FolderLibraries
 import org.jenkinsci.plugins.workflow.libs.LibraryConfiguration
 import org.jenkinsci.plugins.workflow.libs.SCMRetriever
+import org.librecores.FuseSoCTools
 
 println("=== Initialize the Development folder")
 if (Jenkins.instance.getItem("Development") != null) {
@@ -76,17 +77,10 @@ httpClientProject.definition = new CpsScmFlowDefinition(
 
 
 // Add sample projects
-static def createPipelineLibJob(Folder folder, String repo, String nameSuffix = "", String args = null) {
-    WorkflowJob sshdModuleProject = folder.createProject(WorkflowJob.class, "${repo}${nameSuffix}")
-    String extras = args == null ? "" : ", $args"
-    sshdModuleProject.definition = new CpsFlowDefinition(
-        "buildPlugin(platforms: ['linux'], repo: 'https://github.com/jenkinsci/${repo}.git' ${extras})", true
-    )
-}
 
-createPipelineLibJob(pipelineLib, "job-restrictions-plugin", "_findbugs", "findbugs: [archive: true, unstableTotalAll: '0']")
-createPipelineLibJob(pipelineLib, "sshd-module")
-createPipelineLibJob(pipelineLib, "sshd-module", "_findbugs", "findbugs: [archive: true, unstableTotalAll: '0']")
-createPipelineLibJob(pipelineLib, "sshd-module", "_findbugs_checkstyle", "findbugs: [archive: true, unstableTotalAll: '0'], checkstyle: [run: true, archive: true]")
+FuseSoCTools.createFuseSoCJob(pipelineLib, "job-restrictions-plugin", "_findbugs", "findbugs: [archive: true, unstableTotalAll: '0']")
+FuseSoCTools.createFuseSoCJob(pipelineLib, "sshd-module")
+FuseSoCTools.createFuseSoCJob(pipelineLib, "sshd-module", "_findbugs", "findbugs: [archive: true, unstableTotalAll: '0']")
+FuseSoCTools.createFuseSoCJob(pipelineLib, "sshd-module", "_findbugs_checkstyle", "findbugs: [archive: true, unstableTotalAll: '0'], checkstyle: [run: true, archive: true]")
 // Just a plugin, where FindBugs really fails
-createPipelineLibJob(pipelineLib, "last-changes-plugin", "_findbugs", "findbugs: [archive: true, unstableTotalAll: '0']")
+FuseSoCTools.createFuseSoCJob(pipelineLib, "last-changes-plugin", "_findbugs", "findbugs: [archive: true, unstableTotalAll: '0']")
