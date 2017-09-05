@@ -16,13 +16,6 @@ import org.librecores.PipelineLibrary
 def folder = Jenkins.instance.createProject(Folder.class, "System")
 
 // Include https://github.com/jenkins-infra/pipeline-library
-def pipelineLibrarySource = new GitSCMSource("pipeline-library", "https://github.com/jenkins-infra/pipeline-library.git", null, null, null, false)
-PipelineLibrary.forFolder(folder, [PipelineLibrary.LCCI_PIPELINE_LIB])
 folder.description = "This directory belongs to the Jenkins administrator. " +
     "By default he is eligible to run jobs from this Folder on the Master"
 FolderOwnershipHelper.setOwnership(folder, new OwnershipDescription(true, "admin"))
-
-// Add a sample project
-WorkflowJob project = folder.createProject(WorkflowJob.class, "Ownership_Plugin_System_Master")
-project.setDefinition(new CpsFlowDefinition("buildPlugin(platforms: ['master'], repo: 'https://github.com/jenkinsci/ownership-plugin.git')", true))
-JobOwnerHelper.setOwnership(project, new OwnershipDescription(true, "admin"))

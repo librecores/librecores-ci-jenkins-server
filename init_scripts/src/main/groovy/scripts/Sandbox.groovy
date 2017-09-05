@@ -26,9 +26,10 @@ if (Jenkins.instance.getItem("Sandbox") != null) {
 def folder = Jenkins.instance.createProject(Folder.class, "Sandbox")
 FolderOwnershipHelper.setOwnership(folder, new OwnershipDescription(true, "admin"))
 PipelineLibrary.forFolder(folder, [PipelineLibrary.LCCI_PIPELINE_LIB])
-folder.description = "Directory for prototyping CI for projects"
+folder.description = "Directory for prototyping CI flows"
 
 for (String user : Users.listUsers()) {
     def userFolder = folder.createProject(Folder.class, user)
     FolderOwnershipHelper.setOwnership(userFolder, new OwnershipDescription(true, user))
+    userFolder.description = "Folder of user ${user}"
 }

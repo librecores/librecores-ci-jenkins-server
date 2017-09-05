@@ -13,6 +13,7 @@ import org.jenkinsci.plugins.workflow.libs.FolderLibraries
 import org.jenkinsci.plugins.workflow.libs.LibraryConfiguration
 import org.jenkinsci.plugins.workflow.libs.SCMSourceRetriever
 import org.jenkinsci.plugins.workflow.job.WorkflowJob
+import org.librecores.Organizations
 import org.librecores.PipelineLibrary
 
 println("=== Initialize the Production folder")
@@ -24,10 +25,9 @@ if (Jenkins.instance.getItem("Production") != null) {
 def folder = Jenkins.instance.createProject(Folder.class, "Production")
 PipelineLibrary.forFolder(folder, [PipelineLibrary.LCCI_PIPELINE_LIB])
 FolderOwnershipHelper.setOwnership(folder, new OwnershipDescription(true, "admin"))
+folder.description = "Production instance management"
 
-// Add a sample project
-WorkflowJob project1 = folder.createProject(WorkflowJob.class, "Ownership_Plugin_Agent")
-project1.setDefinition(new CpsFlowDefinition("buildPlugin(platforms: ['linux'], repo: 'https://github.com/jenkinsci/ownership-plugin.git')", true))
-JobOwnerHelper.setOwnership(project1, new OwnershipDescription(true, "admin", Arrays.asList("user")))
-
-// TODO: Add Multi-Branch project, which does not build with Windows
+// TODO: Add loading of organizations from external source, e.g. LibreCores Web
+for(def org : Organizations.DEFAULT) {
+    org.toOrganizationFolder(folder)
+}

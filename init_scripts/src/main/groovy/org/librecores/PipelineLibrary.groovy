@@ -9,6 +9,7 @@ import org.jenkinsci.plugins.workflow.libs.SCMRetriever
 import org.jenkinsci.plugins.workflow.libs.SCMSourceRetriever
 
 /**
+ * Contains basic operations for operating with libraries in the test system.
  * @author Oleg Nenashev
  */
 enum PipelineLibrary {
