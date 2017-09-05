@@ -56,6 +56,10 @@ On every job start the changes will be reflected in the directory without commit
 In order to debug the master, use the `-e DEBUG=true -p 5005:5005` when starting the container.
 Jenkins will be suspended on the startup in such case.
 
+In the debug mode it is possible to debug Jenkins core master, 
+including Jenkins core, plugins, and Groovy Init Scripts in this repository.
+Just open IDE with the required projects and attach debugger to the instance.
+
 ### Building images
 
 #### Master
