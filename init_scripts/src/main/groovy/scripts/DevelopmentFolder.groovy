@@ -13,6 +13,7 @@ import org.jenkinsci.plugins.workflow.libs.FolderLibraries
 import org.jenkinsci.plugins.workflow.libs.LibraryConfiguration
 import org.jenkinsci.plugins.workflow.libs.SCMRetriever
 import org.librecores.FuseSoCTools
+import org.librecores.PipelineLibrary
 
 println("=== Initialize the Development folder")
 if (Jenkins.instance.getItem("Development") != null) {
@@ -29,58 +30,37 @@ FolderOwnershipHelper.setOwnership(folder, new OwnershipDescription(true, "admin
 def folder2 = folder.createProject(Folder.class, "User")
 FolderOwnershipHelper.setOwnership(folder2, new OwnershipDescription(true, "user"))
 
-// Create a library for local Jenkins Pipeline Library Development
+// Create a library for the local LibreCores Pipeline Library Development
 // if the Env Var is set and the directory is mapped
-println("==== Initializing local Pipeline Library development dir")
-File file = new File("/var/jenkins_home/pipeline-library/vars")
-if (!file.exists()) {
-    println("/var/jenkins_home/pipeline-library is not mapped, skipping")
-    return
+println("==== Initializing local Pipeline development dir")
+File file = new File("/var/jenkins_home/pipeline-dev")
+if (file.exists() && file.listFiles().length > 0) {
+    println("/var/jenkins_home/pipeline-dev is mapped, initializing the directory")
 } else {
-    println("/var/jenkins_home/pipeline-library is mapped, initializing the directory")
+    println("/var/jenkins_home/pipeline-dev is not mapped, skipping")
+    return
 }
 
 def pipelineLib = folder.createProject(Folder.class, "PipelineLibrary")
 FolderOwnershipHelper.setOwnership(pipelineLib, new OwnershipDescription(true, "user"))
-def scm = new FSSCM("/var/jenkins_home/pipeline-library", false, false, null)
-LibraryConfiguration lc = new LibraryConfiguration("pipeline-library", new SCMRetriever(scm))
-lc.with {
-    implicit = true
-    defaultVersion = "master"
-}
-pipelineLib.addProperty(new FolderLibraries([lc]))
 
-// Add extra Pipeline libs
-def customLib = folder.createProject(Folder.class, "CustomLibraries")
-def customPipelineLibs = [lc]
-def pipelineLibsDir = new File("/var/jenkins_home/pipeline-libs")
+// Add extra Pipeline libs and jobs
+ArrayList<LibraryConfiguration> customPipelineLibs = []
+def pipelineLibsDir = new File("/var/jenkins_home/pipeline-dev")
 if (pipelineLibsDir.exists()) {
-    println("===== Adding local Pipeline libs")
-    pipelineLibsDir.eachFile (FileType.DIRECTORIES) { customLibPath ->
-        if (new File(customLibPath, ".Jenkinslib").exists()) {
-            println("===== Adding ${customLibPath}")
-            def customLibScm = new FSSCM("${customLibPath}", false, false, null)
-            LibraryConfiguration customLibConfig = new LibraryConfiguration("${customLibPath.name}", new SCMRetriever(customLibScm))
-            customLibConfig.with {
-                implicit = true
-                defaultVersion = "master"
-            }
-            customPipelineLibs.add(customLibConfig)
+    println("==== Scanning the Pipeline Dev library")
+    pipelineLibsDir.eachFile (FileType.DIRECTORIES) { directoryPath ->
+        if (new File(directoryPath, ".Jenkinslib").exists()) {
+            println("===== Adding Pipeline Library ${directoryPath}")
+            customPipelineLibs.add(PipelineLibrary.fromFilesystem(directoryPath))
+        } else if (new File(directoryPath, "Jenkinsfile").exists()) {
+            println("===== Adding Pipeline Job ${directoryPath}")
+            WorkflowJob httpClientProject = pipelineLib.createProject(WorkflowJob.class, directoryPath.name)
+            httpClientProject.definition = new CpsScmFlowDefinition(
+                new FSSCM(directoryPath.absolutePath, false, false, null), "Jenkinsfile")
         }
     }
 }
-customLib.addProperty(new FolderLibraries(customPipelineLibs))
 
-WorkflowJob httpClientProject = customLib.createProject(WorkflowJob.class, "apache-httpclient-4-api-plugin")
-httpClientProject.definition = new CpsScmFlowDefinition(
-    new FSSCM("/var/jenkins_home/pipeline-libs/apache-httpclient-4-api-plugin", false, false, null), "Jenkinsfile")
-
-
-// Add sample projects
-
-FuseSoCTools.createFuseSoCJob(pipelineLib, "job-restrictions-plugin", "_findbugs", "findbugs: [archive: true, unstableTotalAll: '0']")
-FuseSoCTools.createFuseSoCJob(pipelineLib, "sshd-module")
-FuseSoCTools.createFuseSoCJob(pipelineLib, "sshd-module", "_findbugs", "findbugs: [archive: true, unstableTotalAll: '0']")
-FuseSoCTools.createFuseSoCJob(pipelineLib, "sshd-module", "_findbugs_checkstyle", "findbugs: [archive: true, unstableTotalAll: '0'], checkstyle: [run: true, archive: true]")
-// Just a plugin, where FindBugs really fails
-FuseSoCTools.createFuseSoCJob(pipelineLib, "last-changes-plugin", "_findbugs", "findbugs: [archive: true, unstableTotalAll: '0']")
+// Add all discovered libs
+pipelineLib.addProperty(new FolderLibraries(customPipelineLibs))

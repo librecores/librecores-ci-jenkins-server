@@ -7,18 +7,18 @@ import org.jenkinsci.plugins.yad.DockerCloudHelper
 
 println("=== Installing Docker Cloud for Linux nodes")
 
-final DockerSlaveTemplate fusesocIcarus =
-    DockerCloudHelper.fromTemplate("onenashev/fusesoc-icarus").with {
+final DockerSlaveTemplate fusesocIcarus = DockerCloudHelper.fromTemplate("onenashev/fusesoc-icarus")
+fusesocIcarus.with {
         labelString = "docker-fusesoc-icarus";
         remoteFs = "/fusesoc"
         ((DockerComputerJNLPLauncher)launcher).user = "root"
 }
 
-final DockerSlaveTemplate ciModules =
-    DockerCloudHelper.fromTemplate("librecores/ci-modules").with {
-        labelString = "docker-fusesoc-icarus";
-        remoteFs = "/fusesoc"
-        ((DockerComputerJNLPLauncher)launcher).user = "root"
-    }
+final DockerSlaveTemplate ciModules = DockerCloudHelper.fromTemplate("librecores/ci-modules")
+ciModules.with{
+    labelString = "docker-fusesoc-icarus";
+    remoteFs = "/fusesoc"
+    ((DockerComputerJNLPLauncher)launcher).user = "root"
+}
 
 DockerCloudHelper.setup([fusesocIcarus, ciModules])
