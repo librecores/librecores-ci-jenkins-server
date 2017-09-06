@@ -26,10 +26,6 @@ if (Jenkins.instance.getItem("Development") != null) {
 def folder = Jenkins.instance.createProject(Folder.class, "Development")
 FolderOwnershipHelper.setOwnership(folder, new OwnershipDescription(true, "admin"))
 
-// Users get their own sandboxes
-def folder2 = folder.createProject(Folder.class, "User")
-FolderOwnershipHelper.setOwnership(folder2, new OwnershipDescription(true, "user"))
-
 // Create a library for the local LibreCores Pipeline Library Development
 // if the Env Var is set and the directory is mapped
 println("==== Initializing local Pipeline development dir")
