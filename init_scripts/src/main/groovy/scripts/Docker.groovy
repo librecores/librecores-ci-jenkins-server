@@ -14,11 +14,18 @@ fusesocIcarus.with {
         ((DockerComputerJNLPLauncher)launcher).user = "root"
 }
 
-final DockerSlaveTemplate ciModules = DockerCloudHelper.fromTemplate("librecores/ci-modules")
-ciModules.with{
-    labelString = "docker-fusesoc-icarus";
+final DockerSlaveTemplate lcciModules = DockerCloudHelper.fromTemplate("librecores/ci-modules")
+lcciModules.with{
+    labelString = "librecores-ci-modules";
     remoteFs = "/fusesoc"
     ((DockerComputerJNLPLauncher)launcher).user = "root"
 }
 
-DockerCloudHelper.setup([fusesocIcarus, ciModules])
+final DockerSlaveTemplate lcciBase = DockerCloudHelper.fromTemplate("librecores/librecores-ci")
+lcciBase.with{
+    labelString = "librecores-ci";
+    remoteFs = "/"
+    ((DockerComputerJNLPLauncher)launcher).user = "root"
+}
+
+DockerCloudHelper.setup([fusesocIcarus, lcciBase, lcciModules])

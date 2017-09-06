@@ -19,7 +19,7 @@ def securityRealm = new HudsonPrivateSecurityRealm(false)
 for (def user : Users.listUsers()) {
     // Mocks credentials
     User instance = securityRealm.createAccount(user, user)
-    instance.setFullName("Test User ${user}")
+    instance.setFullName("${user} (test user)")
 }
 
 if (createAdmin) {
