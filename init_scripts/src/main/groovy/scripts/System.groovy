@@ -1,3 +1,5 @@
+import hudson.plugins.sidebar_link.LinkAction
+import hudson.plugins.sidebar_link.SidebarLinkPlugin
 import jenkins.model.Jenkins
 import jenkins.model.JenkinsLocationConfiguration
 import hudson.tasks.Mailer
@@ -18,3 +20,9 @@ println("--- Configuring Locale")
 PluginImpl localePlugin = (PluginImpl)Jenkins.instance.getPlugin("locale")
 localePlugin.systemLocale = "en_US"
 localePlugin.@ignoreAcceptLanguage=true
+
+println("--- Adding Sidebar Link")
+def sidebarLink = Jenkins.instance.getPlugin(SidebarLinkPlugin.class)
+def links = [new LinkAction("https://www.librecores.org/", "LibreCores Website", "userContent/logo_48.png")]
+sidebarLink.links.addAll(links)
+Jenkins.instance.actions.addAll(links)
