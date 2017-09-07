@@ -16,9 +16,10 @@ fusesocIcarus.with {
 
 final DockerSlaveTemplate lcciModules = DockerCloudHelper.fromTemplate("librecores/ci-modules")
 lcciModules.with{
-    labelString = "librecores-ci-modules";
+    labelString = "librecores-ci-modules"
     remoteFs = "/fusesoc"
     ((DockerComputerJNLPLauncher)launcher).user = "root"
+    dockerContainerLifecycle.createContainer.volumes = ["lcci-tools:/tools"]
 }
 
 final DockerSlaveTemplate lcciBase = DockerCloudHelper.fromTemplate("librecores/librecores-ci")

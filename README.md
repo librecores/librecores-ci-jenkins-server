@@ -74,6 +74,10 @@ docker build -t librecores/librecores-ci-dev .
 
 See other Docker repositories in the LibreCores organization.
 
+Note that [librecores/ci-modules](https://hub.docker.com/r/librecores/ci-modules/) (Jenkins label: `librecores-ci-modules`) on the instance 
+requires a pre-deployed `lcci-tools` volume with tools.
+See [LCCI Python](https://github.com/librecores/lcci-python) Docker image documentation for more info about deploying tools on this volume.
+
 ## Contacts
 
 * [Oleg Nenashev](https://github.com/oleg-nenashev) - Instance maintainer: CI instance itself
