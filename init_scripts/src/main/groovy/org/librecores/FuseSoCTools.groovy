@@ -3,7 +3,7 @@ package org.librecores
 import com.cloudbees.hudson.plugins.folder.Folder
 import jenkins.branch.BranchSource
 import jenkins.branch.MultiBranchProject
-import org.jenkinsci.plugins.github_branch_source.GitHubSCMSource
+import jenkins.plugins.git.GitSCMSource
 import org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition
 import org.jenkinsci.plugins.workflow.job.WorkflowJob
 import org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject
@@ -42,7 +42,7 @@ class FuseSoCTools {
         WorkflowMultiBranchProject job = folder.createProject(WorkflowMultiBranchProject.class, "${jobName}")
 
         // We do not grant checkout just in case repo owners grants wrong access
-        BranchSource bs = new BranchSource(new GitHubSCMSource("github", null, null, credentialsId, organization, repo))
+        BranchSource bs = new BranchSource(new GitSCMSource("github", "https://github.com/${organization}/${repo}.git", credentialsId, null, null, false))
         def fields = MultiBranchProject.class.declaredFields
         Field myField
         for (def field : fields) {
