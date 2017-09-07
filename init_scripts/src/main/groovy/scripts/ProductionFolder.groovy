@@ -34,6 +34,6 @@ for(def org : Organizations.DEFAULT) {
 }
 
 // FuseSoCTools.createMultiBranchJob(folder, "lowrisc-chip", "wallento")
-FuseSoCTools.createMultiBranchJob(folder, "cocotb-example-endian_swapper", "wallento")
+FuseSoCTools.createMultiBranchJob(folder, "cocotb-example-endian_swapper", "oleg-nenashev")
 // FuseSoCTools.createMultiBranchJob(folder, "baremetal-apps", "optimsoc", "OpTiMSoC")
 FuseSoCTools.createMultiBranchJob(folder, "picorv32", "oleg-nenashev", "PicoRV32")

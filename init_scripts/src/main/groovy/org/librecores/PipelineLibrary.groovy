@@ -13,19 +13,21 @@ import org.jenkinsci.plugins.workflow.libs.SCMSourceRetriever
  * @author Oleg Nenashev
  */
 enum PipelineLibrary {
-    LCCI_PIPELINE_LIB("librecores-pipeline-lib");
+    LCCI_PIPELINE_LIB("librecores-pipeline-lib", "librecores","librecoresci");
 
     final String id
+    final String name
     final String organization
 
-    PipelineLibrary(String id, String organization = "librecores") {
+    PipelineLibrary(String id, String organization = "librecores", String name = null) {
         this.id = id
         this.organization = organization
+        this.name = name ?: id
     }
 
     LibraryConfiguration fromGitHub() {
         def pipelineLibrarySource = new GitSCMSource(id, "https://github.com/${organization}/${id}.git", null, null, null, false)
-        LibraryConfiguration lc = new LibraryConfiguration(id, new SCMSourceRetriever(pipelineLibrarySource))
+        LibraryConfiguration lc = new LibraryConfiguration(name, new SCMSourceRetriever(pipelineLibrarySource))
         lc.with {
             implicit = true
             defaultVersion = "master"
