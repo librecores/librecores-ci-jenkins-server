@@ -29,6 +29,7 @@ ENV LOCAL_PIPELINE_LIBRARY_PATH=${LOCAL_PIPELINE_LIBRARY_PATH}
 RUN mkdir -p ${LOCAL_PIPELINE_LIBRARY_PATH}
 
 VOLUME /var/jenkins_home/pipeline-dev
+VOLUME /var/jenkins_home/imported_secrets
 EXPOSE 5005
 
 COPY jenkins2.sh /usr/local/bin/jenkins2.sh

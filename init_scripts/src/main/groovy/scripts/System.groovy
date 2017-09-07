@@ -4,6 +4,7 @@ import jenkins.model.Jenkins
 import jenkins.model.JenkinsLocationConfiguration
 import hudson.tasks.Mailer
 import hudson.plugins.locale.PluginImpl
+import org.librecores.Credentials
 
 // TODO: Configure Job Restrictions, Script Security, Authorize Project, etc., etc.
 
@@ -26,3 +27,7 @@ def sidebarLink = Jenkins.instance.getPlugin(SidebarLinkPlugin.class)
 def links = [new LinkAction("https://www.librecores.org/", "LibreCores Website", "userContent/logo_48.png")]
 sidebarLink.links.addAll(links)
 Jenkins.instance.actions.addAll(links)
+
+println("--- Load Credentials")
+File secretsDir = new File("/var/jenkins_home/imported_secrets")
+Credentials.loadIfExists(Credentials.defaultGitHubID, secretsDir,"github.prop")

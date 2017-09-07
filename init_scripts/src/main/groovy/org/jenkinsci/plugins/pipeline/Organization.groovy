@@ -6,6 +6,7 @@ import jenkins.branch.OrganizationFolder
 import jenkins.scm.api.SCMNavigator
 import org.jenkinsci.plugins.github_branch_source.GitHubSCMNavigator
 import org.jenkinsci.plugins.ownership.model.folders.FolderOwnershipHelper
+import org.librecores.Credentials
 
 import javax.annotation.CheckForNull
 
@@ -37,7 +38,7 @@ class Organization {
         this.type = type
     }
 
-    OrganizationFolder toOrganizationFolder(Folder parent) {
+    OrganizationFolder toOrganizationFolder(Folder parent, String credentialsId = Credentials.defaultGitHubID) {
         def orgFolder = parent.createProject(OrganizationFolder.class, id)
         orgFolder.displayName = this.displayName
         orgFolder.description = "Organization folder for ${displayName}"
@@ -45,17 +46,17 @@ class Organization {
         FolderOwnershipHelper.setOwnership(orgFolder, d)
 
         //TODO: Here we call APIs which are restricted in Java. It may fall apart after an update
-        SCMNavigator nav = createNavigator()
+        SCMNavigator nav = createNavigator(credentialsId)
         orgFolder.navigators.add(nav)
 
         return orgFolder
         //TODO: Add sidebar link to the org
     }
 
-    private SCMNavigator createNavigator() {
+    private SCMNavigator createNavigator(String credentialsId) {
         switch (type) {
             case OrganizationType.GITHUB:
-                return new GitHubSCMNavigator(null, id, null, null)
+                return new GitHubSCMNavigator(null, id, credentialsId, null)
             default:
                 throw new IllegalArgumentException("Unsupported SCM type: ${type}")
         }

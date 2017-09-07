@@ -13,6 +13,7 @@ import org.jenkinsci.plugins.workflow.libs.FolderLibraries
 import org.jenkinsci.plugins.workflow.libs.LibraryConfiguration
 import org.jenkinsci.plugins.workflow.libs.SCMSourceRetriever
 import org.jenkinsci.plugins.workflow.job.WorkflowJob
+import org.librecores.FuseSoCTools
 import org.librecores.Organizations
 import org.librecores.PipelineLibrary
 
@@ -31,3 +32,8 @@ folder.description = "Production instance management"
 for(def org : Organizations.DEFAULT) {
     org.toOrganizationFolder(folder)
 }
+
+// FuseSoCTools.createMultiBranchJob(folder, "lowrisc-chip", "wallento")
+FuseSoCTools.createMultiBranchJob(folder, "cocotb-example-endian_swapper", "wallento")
+// FuseSoCTools.createMultiBranchJob(folder, "baremetal-apps", "optimsoc", "OpTiMSoC")
+FuseSoCTools.createMultiBranchJob(folder, "picorv32", "oleg-nenashev", "PicoRV32")

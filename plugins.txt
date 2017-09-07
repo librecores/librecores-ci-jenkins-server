@@ -30,3 +30,4 @@ ssh-slaves:1.21
 subversion:2.9
 tap:2.1
 ws-cleanup:0.34
+credentials:2.1.15

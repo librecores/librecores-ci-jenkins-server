@@ -29,7 +29,7 @@ Commonly it requires the following permissions:
 Run image:
 
 ```shell
-docker run --rm --name ci-jenkins-io-dev -v maven-repo:/root/.m2 -e DEV_HOST=${CURRENT_HOST} -p 8080:8080 -p 50000:50000 librecores/librecores-ci-dev
+docker run --rm --name ci-jenkins-io-dev -v maven-repo:/root/.m2 -e DEV_HOST=${CURRENT_HOST} -p 8080:8080 -p 50000:50000 v ${MY_SECRETS_DIR}:/var/jenkins_home/imported_secrets:ro librecores/librecores-ci-dev
 ```
 
 Jenkins will need to connect to the Docker host to run agents.
@@ -45,7 +45,7 @@ In the _Development_ folder there is a _PipelineLib_ folder, which allows local 
 This folder can be mapped to a local repository in order to develop the library without committing changes: 
 
 ```shell
-docker run --rm --name librecores-ci-dev -v maven-repo:/root/.m2 -v ${MY_PIPELINE_DEV_DIR}:/var/jenkins_home/pipeline-dev:ro -e DEV_HOST=${CURRENT_HOST} -p 8080:8080 -p 50000:50000 librecores/librecores-ci-dev
+docker run --rm --name librecores-ci-dev -v maven-repo:/root/.m2 -v ${MY_PIPELINE_DEV_DIR}:/var/jenkins_home/pipeline-dev:ro -v ${MY_SECRETS_DIR}:/var/jenkins_home/imported_secrets:ro -e DEV_HOST=${CURRENT_HOST} -p 8080:8080 -p 50000:50000 librecores/librecores-ci-dev
 ```
 
 Once started, you can just start editing the Pipeline library locally.

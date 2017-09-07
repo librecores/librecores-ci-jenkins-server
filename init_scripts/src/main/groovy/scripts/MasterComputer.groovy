@@ -10,6 +10,7 @@ import com.synopsys.arc.jenkinsci.plugins.jobrestrictions.restrictions.job.Regex
 import com.synopsys.arc.jenkins.plugins.ownership.security.jobrestrictions.OwnersListJobRestriction
 import io.jenkins.plugins.jobrestrictions.restrictions.job.JobClassNameRestriction
 import io.jenkins.plugins.jobrestrictions.util.ClassSelector
+import org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject
 
 println("== Configuring Master computer")
 
@@ -22,8 +23,10 @@ NodeOwnerHelper.setOwnership(Jenkins.instance, new OwnershipDescription(true, "a
 OwnersListJobRestriction ownedByAdmin = new OwnersListJobRestriction([ new UserSelector("admin") ],false)
 RegexNameRestriction inSystemFolder = new RegexNameRestriction("^System/.+", false)
 
-ClassSelector workflowJob = new ClassSelector(WorkflowJob.class.name)
-JobClassNameRestriction whitelistedClasses = new JobClassNameRestriction([workflowJob])
+JobClassNameRestriction whitelistedClasses = new JobClassNameRestriction([
+    new ClassSelector(WorkflowJob.class.name),
+    new ClassSelector(WorkflowMultiBranchProject.class.name)
+])
 
 Jenkins.instance.getNodeProperties().add(
     new JobRestrictionProperty(

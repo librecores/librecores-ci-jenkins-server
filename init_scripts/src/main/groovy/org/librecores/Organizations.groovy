@@ -15,8 +15,8 @@ class Organizations {
      */
     static def DEFAULT = new ArrayList<Organization>(
         [
-            new Organization("librecores", "oleg-nenashev",
-                ["olofk", "imphil", "wallento"], "LibreCores")
+     //       new Organization("librecores", "oleg-nenashev",
+     //           ["olofk", "imphil", "wallento"], "LibreCores")
         ]
     )
 }
