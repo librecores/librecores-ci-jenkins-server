@@ -2,18 +2,8 @@
 
 import com.cloudbees.hudson.plugins.folder.Folder
 import com.synopsys.arc.jenkins.plugins.ownership.OwnershipDescription
-import com.synopsys.arc.jenkins.plugins.ownership.jobs.JobOwnerHelper
-import hudson.plugins.git.GitSCM
 import jenkins.model.Jenkins
-import jenkins.plugins.git.GitSCMSource
 import org.jenkinsci.plugins.ownership.model.folders.FolderOwnershipHelper
-import org.jenkinsci.plugins.workflow.cps.CpsFlowDefinition
-import org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition
-import org.jenkinsci.plugins.workflow.libs.FolderLibraries
-import org.jenkinsci.plugins.workflow.libs.LibraryConfiguration
-import org.jenkinsci.plugins.workflow.libs.SCMSourceRetriever
-import org.jenkinsci.plugins.workflow.job.WorkflowJob
-import org.librecores.FuseSoCTools
 import org.librecores.Organizations
 import org.librecores.PipelineLibrary
 
@@ -33,9 +23,3 @@ for(def org : Organizations.DEFAULT) {
     org.toOrganizationFolder(folder)
 }
 
-FuseSoCTools.createMultiBranchJob(folder, "lowrisc-chip", "wallento")
-FuseSoCTools.createMultiBranchJob(folder, "cocotb-example-endian_swapper", "oleg-nenashev")
-FuseSoCTools.createMultiBranchJob(folder, "baremetal-apps", "optimsoc", "OpTiMSoC")
-FuseSoCTools.createMultiBranchJob(folder, "picorv32", "oleg-nenashev", "PicoRV32")
-FuseSoCTools.createMultiBranchJob(folder, "fusesoc", "oleg-nenashev")
-FuseSoCTools.createMultiBranchJob(folder, "wb_sdram_ctrl", "oleg-nenashev")
