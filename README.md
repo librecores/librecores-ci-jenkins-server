@@ -26,6 +26,62 @@ Commonly it requires the following permissions:
 * Write permission - for commenting and approving pull requests/commits
 * Webhook - for automated hook management within repo/organization (not really required since project admins can setup hooks on their own)
 
+## Docker Dev Environment
+
+### Usage
+
+Run image:
+
+```shell
+docker run --rm --name ci-jenkins-io-dev -v maven-repo:/root/.m2 -e DEV_HOST=${CURRENT_HOST} -p 8080:8080 -p 50000:50000 v ${MY_SECRETS_DIR}:/var/jenkins_home/imported_secrets:ro librecores/librecores-ci-dev
+```
+
+Jenkins will need to connect to the Docker host to run agents.
+If you use Docker for Mac, use `-Dio.jenkins.dev.host` and additional `socat` image for forwarding.
+
+```shell
+docker run -d -v /var/run/docker.sock:/var/run/docker.sock -p 2376:2375 bobrik/socat TCP4-LISTEN:2375,fork,reuseaddr UNIX-CONNECT:/var/run/docker.sock
+```
+
+#### Developing Pipeline libraries
+
+In the _Development_ folder there is a _PipelineLib_ folder, which allows local building and testing of the library.
+This folder can be mapped to a local repository in order to develop the library without committing changes: 
+
+```shell
+docker run --rm --name librecores-ci-dev -v maven-repo:/root/.m2 -v ${MY_PIPELINE_DEV_DIR}:/var/jenkins_home/pipeline-dev:ro -v ${MY_SECRETS_DIR}:/var/jenkins_home/imported_secrets:ro -e DEV_HOST=${CURRENT_HOST} -p 8080:8080 -p 50000:50000 librecores/librecores-ci-dev
+```
+
+Once started, you can just start editing the Pipeline library locally.
+On every job start the changes will be reflected in the directory without committing anything.
+
+##### Debugging Master
+
+In order to debug the master, use the `-e DEBUG=true -p 5005:5005` when starting the container.
+Jenkins will be suspended on the startup in such case.
+
+In the debug mode it is possible to debug Jenkins core master, 
+including Jenkins core, plugins, and Groovy Init Scripts in this repository.
+Just open IDE with the required projects and attach debugger to the instance.
+
+### Building images
+
+#### Master
+
+Build image:
+
+```shell
+docker build -t librecores/librecores-ci-dev .
+```
+
+#### Build Agents 
+
+See other Docker repositories in the LibreCores organization.
+
+Note that [librecores/ci-modules](https://hub.docker.com/r/librecores/ci-modules/) (Jenkins label: `librecores-ci-modules`) on the instance 
+requires a pre-deployed `lcci-tools` volume with tools.
+See [LCCI Python](https://github.com/librecores/lcci-python) Docker image documentation for more info about deploying tools on this volume.
+
 ## Contacts
 
 * [Oleg Nenashev](https://github.com/oleg-nenashev) - Instance maintainer: CI instance itself
