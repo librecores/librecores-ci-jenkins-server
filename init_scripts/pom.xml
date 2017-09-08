@@ -126,6 +126,12 @@
       <version>2.1.15</version>
       <scope>provided</scope>
     </dependency>
+    <dependency>
+      <groupId>org.codefirst.jenkins.simplethemeplugin</groupId>
+      <artifactId>simple-theme-plugin</artifactId>
+      <version>0.3</version>
+      <scope>provided</scope>
+    </dependency>
   </dependencies>
   
   <build>
