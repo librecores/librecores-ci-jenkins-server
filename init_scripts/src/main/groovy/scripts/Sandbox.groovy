@@ -5,6 +5,7 @@ import com.synopsys.arc.jenkins.plugins.ownership.OwnershipDescription
 import jenkins.model.Jenkins
 import com.cloudbees.hudson.plugins.folder.Folder
 import org.jenkinsci.plugins.ownership.model.folders.FolderOwnershipHelper
+import org.librecores.Credentials
 import org.librecores.FuseSoCTools
 import org.librecores.PipelineLibrary
 import org.librecores.Users
@@ -35,6 +36,6 @@ for (String user : Users.listUsers()) {
 FuseSoCTools.createMultiBranchJob(userFolders["oleg-nenashev"], "cocotb-example-endian_swapper", "oleg-nenashev")
 FuseSoCTools.createMultiBranchJob(userFolders["oleg-nenashev"], "picorv32", "oleg-nenashev", "PicoRV32")
 FuseSoCTools.createMultiBranchJob(userFolders["oleg-nenashev"], "fusesoc", "oleg-nenashev")
-FuseSoCTools.createMultiBranchJob(userFolders["oleg-nenashev"], "wb_sdram_ctrl", "oleg-nenashev")
+FuseSoCTools.createMultiBranchJob(userFolders["oleg-nenashev"], "wb_sdram_ctrl", "oleg-nenashev", "wb_sdram_ctrl", Credentials.defaultGitHubID, true)
 FuseSoCTools.createMultiBranchJob(userFolders["wallento"], "lowrisc-chip", "wallento")
 FuseSoCTools.createMultiBranchJob(userFolders["wallento"], "baremetal-apps", "optimsoc", "OpTiMSoC")
