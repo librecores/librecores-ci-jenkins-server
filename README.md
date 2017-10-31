@@ -33,7 +33,7 @@ Commonly it requires the following permissions:
 Run image:
 
 ```shell
-docker run --rm --name ci-jenkins-io-dev -v maven-repo:/root/.m2 -e DEV_HOST=${CURRENT_HOST} -p 8080:8080 -p 50000:50000 v ${MY_SECRETS_DIR}:/var/jenkins_home/imported_secrets:ro librecores/librecores-ci-dev
+docker run --rm --name ci-jenkins-io-dev -v maven-repo:/root/.m2 -e DEV_HOST=${CURRENT_HOST} -p 8080:8080 -p 50000:50000 -v ${MY_SECRETS_DIR}:/var/jenkins_home/imported_secrets:ro librecores/librecores-ci-dev
 ```
 
 Jenkins will need to connect to the Docker host to run agents.
