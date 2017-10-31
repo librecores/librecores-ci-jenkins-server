@@ -30,7 +30,7 @@ Commonly it requires the following permissions:
 
 ### Usage
 
-Run image:
+Run image (with sudo or as a user in a "docker" usergroup):
 
 ```shell
 docker run --rm --name ci-jenkins-io-dev -v maven-repo:/root/.m2 -e DEV_HOST=${CURRENT_HOST} -p 8080:8080 -p 50000:50000 -v ${MY_SECRETS_DIR}:/var/jenkins_home/imported_secrets:ro librecores/librecores-ci-dev
