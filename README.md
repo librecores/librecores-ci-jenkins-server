@@ -45,10 +45,10 @@ docker run -d -v /var/run/docker.sock:/var/run/docker.sock -p 2376:2375 bobrik/s
 
 Connect to Jenkins and login:
 
-Open 127.0.0.1:8080 (by default) in your browser while the server is running.
-Log in with
+Open 127.0.0.1:8080 (by default) in your browser while the server is running.  
+Log in with  
 
-Login: admin
+Login: admin  
 Password: admin
 
 #### Developing Pipeline libraries
