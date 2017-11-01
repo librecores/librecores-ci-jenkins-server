@@ -17,6 +17,9 @@ Status overview from [ORCONF2016](http://orconf.org/):
 * [Slides](https://speakerdeck.com/onenashev/orconf2016-librecores-ci-project-overview)
 * Video: Coming soon
 
+More recent overview from [ORCONF2017](http://orconf.org/):
+* [Video](https://www.youtube.com/watch?v=FX7_6d5yAg4&list=PLUg3wIOWD8ypZnjCc_M08APZ7NSuET4G1&index=10)
+
 ## GitHub Integration
 
 We have a [librecores-ci-bot](https://github.com/librecores-ci-bot), which allows integrating with GitHub projects.
@@ -30,7 +33,7 @@ Commonly it requires the following permissions:
 
 ### Usage
 
-Run image (with sudo or as a user in a "docker" usergroup):
+Run image:
 
 ```shell
 docker run --rm --name ci-jenkins-io-dev -v maven-repo:/root/.m2 -e DEV_HOST=${CURRENT_HOST} -p 8080:8080 -p 50000:50000 -v ${MY_SECRETS_DIR}:/var/jenkins_home/imported_secrets:ro librecores/librecores-ci-dev
