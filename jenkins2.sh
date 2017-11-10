@@ -29,7 +29,7 @@ echo "localhost: 127.0.0.1:8080 (Usable on some setups)"
 container_ip=$(ip route get 8.8.8.8 | awk '/8.8.8.8/ {print $NF}')
 echo "via docker container IP: ${container_ip}:8080 (Usable on some setups)"
 server_ip=$(curl -s http://checkip.amazonaws.com |cut -d " " -f 5)
-echo "Server external address: ${server_ip}:8080 (OS-agnostic as long as server is externally reachable (No by default))"
+echo "Server external address: ${server_ip}:8080 (OS-agnostic as long as server is externally GUI-launchable (No by default))"
 echo "*****************************************************"
 
 exec /usr/local/bin/jenkins.sh "$@"
