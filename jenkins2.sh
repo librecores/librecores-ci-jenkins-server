@@ -26,8 +26,10 @@ export JAVA_OPTS="$JAVA_OPTS ${extra_java_opts[@]}"
 
 echo "********YOUR SERVER ADDRESS WILL BE AS FOLLOWS*******"
 echo "localhost: 127.0.0.1:8080 (Usable on some setups)"
+docker_ip=$(ip route show | cut -d " " -z -f 3| tr -d '\0')
+echo "docker host IP: ${docker_ip}:8080 (Usable on some setups)"
 container_ip=$(ip route get 8.8.8.8 | awk '/8.8.8.8/ {print $NF}')
-echo "via docker container IP: ${container_ip}:8080 (Usable on some setups)"
+echo "docker container IP: ${container_ip}:8080 (Usable on some setups)"
 server_ip=$(curl -s http://checkip.amazonaws.com |cut -d " " -f 5)
 echo "Server external address: ${server_ip}:8080 (OS-agnostic as long as server is externally GUI-launchable (No by default))"
 echo "*****************************************************"
