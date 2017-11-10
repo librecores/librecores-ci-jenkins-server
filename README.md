@@ -45,8 +45,10 @@ docker run -d -v /var/run/docker.sock:/var/run/docker.sock -p 2376:2375 bobrik/s
 
 Connect to Jenkins and login:
 
-Open 127.0.0.1:8080 (by default) in your browser while the server is running.  
-Log in with  
+Read "YOUR SERVER ADDRESS WILL BE AS FOLLOWS" section in server startup logs (very beginning).
+Try opening these destinations in your browser while the server is running to see what works for your setup.
+
+When successfull log into Jenkins web GUI with  
 
 Login: admin  
 Password: admin
