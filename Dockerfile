@@ -1,4 +1,4 @@
-FROM jenkins/jenkins:2.73.2
+FROM jenkins/jenkins:2.89.2
 MAINTAINER Oleg Nenashev <o.v.nenashev@gmail.com>
 LABEL Description="Spins up the local development environment" Vendor="Oleg Nenashev" Version="0.1"
 
