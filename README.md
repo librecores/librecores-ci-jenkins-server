@@ -15,9 +15,10 @@ In the case of any questions, please use bugtracker in this GitHub project.
 
 Status overview from [ORCONF2016](http://orconf.org/):
 * [Slides](https://speakerdeck.com/onenashev/orconf2016-librecores-ci-project-overview)
-* Video: Coming soon
+* [Video](https://www.youtube.com/watch?v=scZbmkRGWsY)
 
 More recent overview from [ORCONF2017](http://orconf.org/):
+* [Slides](https://speakerdeck.com/onenashev/orconf-2017-state-of-librecores-ci)
 * [Video](https://www.youtube.com/watch?v=FX7_6d5yAg4&list=PLUg3wIOWD8ypZnjCc_M08APZ7NSuET4G1&index=10)
 
 ## GitHub Integration
