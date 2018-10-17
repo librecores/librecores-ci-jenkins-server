@@ -15,12 +15,5 @@ else
   extra_java_opts+=( "-Dio.jenkins.dev.host=${DEV_HOST}" )
 fi
 
-if [[ "$DEBUG" ]] ; then
-  extra_java_opts+=( \
-    '-Xdebug' \
-    '-Xrunjdwp:server=y,transport=dt_socket,address=5005,suspend=y' \
-  )
-fi
-
 export JAVA_OPTS="$JAVA_OPTS ${extra_java_opts[@]}"
 exec /usr/local/bin/jenkins.sh "$@"

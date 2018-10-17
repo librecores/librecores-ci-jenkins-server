@@ -1,4 +1,4 @@
-FROM jenkins/jenkins:2.89.2
+FROM jenkins/jenkins:2.138.2
 MAINTAINER Oleg Nenashev <o.v.nenashev@gmail.com>
 LABEL Description="Spins up the local development environment" Vendor="Oleg Nenashev" Version="0.1"
 
@@ -7,7 +7,8 @@ LABEL Description="Spins up the local development environment" Vendor="Oleg Nena
 # See https://github.com/jenkinsci/docker/issues/538
 ENV JENKINS_UC_EXPERIMENTAL=https://updates.jenkins.io/experimental
 COPY plugins.txt /usr/share/jenkins/ref/plugins.txt
-RUN /usr/local/bin/install-plugins.sh < /usr/share/jenkins/ref/plugins.txt
+COPY install-plugins-2.sh /usr/local/bin/install-plugins-2.sh
+RUN /usr/local/bin/install-plugins-2.sh < /usr/share/jenkins/ref/plugins.txt
 
 COPY init_scripts/src/main/groovy/ /usr/share/jenkins/ref/init.groovy.d/
 COPY userContent ${JENKINS_HOME}/userContent/
@@ -32,4 +33,4 @@ VOLUME /var/jenkins_home/imported_secrets
 EXPOSE 5005
 
 COPY jenkins2.sh /usr/local/bin/jenkins2.sh
-ENTRYPOINT ["/bin/tini", "--", "/usr/local/bin/jenkins2.sh"]
+ENTRYPOINT ["/sbin/tini", "--", "/usr/local/bin/jenkins2.sh"]
