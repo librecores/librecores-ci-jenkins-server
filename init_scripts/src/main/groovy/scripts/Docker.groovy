@@ -12,7 +12,6 @@ fusesocIcarus.with {
         labelString = "docker-fusesoc-icarus";
         remoteFs = "/fusesoc"
         ((DockerComputerJNLPLauncher)launcher).user = "root"
-        dockerContainerLifecycle.createContainer.cpusetCpus = "1"
         dockerContainerLifecycle.createContainer.memoryLimit = "2g"
 }
 
@@ -22,7 +21,6 @@ lcciModules.with{
     remoteFs = "/fusesoc"
     ((DockerComputerJNLPLauncher)launcher).user = "root"
     dockerContainerLifecycle.createContainer.volumes = ["lcci-tools:/tools"]
-    dockerContainerLifecycle.createContainer.cpusetCpus = "1"
     dockerContainerLifecycle.createContainer.memoryLimit  = "2g"
 }
 
@@ -31,7 +29,6 @@ lcciBase.with{
     labelString = "librecores-ci";
     remoteFs = "/"
     ((DockerComputerJNLPLauncher)launcher).user = "root"
-    dockerContainerLifecycle.createContainer.cpusetCpus = "1"
     dockerContainerLifecycle.createContainer.memoryLimit  = "2g"
 }
 
