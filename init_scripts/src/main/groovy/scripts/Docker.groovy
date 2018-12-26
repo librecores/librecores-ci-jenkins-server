@@ -12,6 +12,8 @@ fusesocIcarus.with {
         labelString = "docker-fusesoc-icarus";
         remoteFs = "/fusesoc"
         ((DockerComputerJNLPLauncher)launcher).user = "root"
+        dockerContainerLifecycle.createContainer.cpusetCpus = "1"
+        dockerContainerLifecycle.createContainer.memoryLimit = "1g"
 }
 
 final DockerSlaveTemplate lcciModules = DockerCloudHelper.fromTemplate("librecores/ci-modules")
@@ -20,6 +22,8 @@ lcciModules.with{
     remoteFs = "/fusesoc"
     ((DockerComputerJNLPLauncher)launcher).user = "root"
     dockerContainerLifecycle.createContainer.volumes = ["lcci-tools:/tools"]
+    dockerContainerLifecycle.createContainer.cpusetCpus = "2"
+    dockerContainerLifecycle.createContainer.memoryLimit  = "1g"
 }
 
 final DockerSlaveTemplate lcciBase = DockerCloudHelper.fromTemplate("librecores/librecores-ci")
@@ -27,6 +31,8 @@ lcciBase.with{
     labelString = "librecores-ci";
     remoteFs = "/"
     ((DockerComputerJNLPLauncher)launcher).user = "root"
+    dockerContainerLifecycle.createContainer.cpusetCpus = "3"
+    dockerContainerLifecycle.createContainer.memoryLimit  = "1g"
 }
 
 DockerCloudHelper.setup([fusesocIcarus, lcciBase, lcciModules])
