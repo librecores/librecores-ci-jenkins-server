@@ -30,6 +30,7 @@ RUN mkdir -p ${LOCAL_PIPELINE_LIBRARY_PATH}
 
 VOLUME /var/jenkins_home/pipeline-dev
 VOLUME /var/jenkins_home/imported_secrets
+ENV JAVA_OPTS="-XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -XX:MaxRAMFraction=2 -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/tmp -XX:+ExitOnOutOfMemoryError -XX:+PrintFlagsFinal"
 EXPOSE 5005
 
 COPY jenkins2.sh /usr/local/bin/jenkins2.sh
