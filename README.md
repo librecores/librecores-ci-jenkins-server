@@ -47,6 +47,16 @@ If you use Docker for Mac, use `-Dio.jenkins.dev.host` and additional `socat` im
 docker run -d -v /var/run/docker.sock:/var/run/docker.sock -p 2376:2375 bobrik/socat TCP4-LISTEN:2375,fork,reuseaddr UNIX-CONNECT:/var/run/docker.sock
 ```
 
+Connect to Jenkins and login:
+
+Read "YOUR SERVER ADDRESS WILL BE AS FOLLOWS" section in server startup logs (very beginning).
+Try opening these destinations in your browser while the server is running to see what works for your setup.
+
+When successfull log into Jenkins web GUI with  
+
+Login: admin  
+Password: admin
+
 #### Developing Pipeline libraries
 
 In the _Development_ folder there is a _PipelineLib_ folder, which allows local building and testing of the library.
