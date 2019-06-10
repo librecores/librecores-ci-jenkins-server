@@ -28,17 +28,6 @@ if (createAdmin) {
 }
 Jenkins.instance.setSecurityRealm(securityRealm)
 
-println("=== Installing the Role-Based Authorization strategy")
-RoleBasedAuthorizationStrategy strategy = new RoleBasedAuthorizationStrategy()
-
-Map<String, RoleMap> grantedRoles = new HashMap<String, RoleMap>()
-grantedRoles.put(RoleType.Project.stringType, OwnershipBasedSecurityHelper.projectRoleMap)
-grantedRoles.put(RoleType.Slave.stringType, OwnershipBasedSecurityHelper.computerRoleMap)
-grantedRoles.put(RoleType.Global.stringType, OwnershipBasedSecurityHelper.globalAdminAndAnonymousRoles)
-
-strategy.@grantedRoles.putAll(grantedRoles)
-Jenkins.instance.authorizationStrategy = strategy
-
 println("=== Configure Authorize Project")
 GlobalQueueItemAuthenticator auth = new GlobalQueueItemAuthenticator(
     new TriggeringUsersAuthorizationStrategy()

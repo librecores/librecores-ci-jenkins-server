@@ -1,14 +1,23 @@
-FROM jenkins/jenkins:2.138.2
-MAINTAINER Oleg Nenashev <o.v.nenashev@gmail.com>
-LABEL Description="Spins up the local development environment" Vendor="Oleg Nenashev" Version="0.1"
+#
+# This is the obsolete LibreCores developer build pack
+#
+FROM maven:3.6.0 as mvncache
+ADD pom.xml /src/pom.xml
+ADD init_scripts/pom.xml /src/init_scripts/pom.xml
+WORKDIR /src
+ENV MAVEN_OPTS=-Dmaven.repo.local=/mavenrepo
+RUN mvn compile dependency:resolve dependency:resolve-plugins
 
-#TODO: Get rid of the experimental UC once the FileSystem SCM plugin is released
-# Use experimental UC for FileSystem SCM
-# See https://github.com/jenkinsci/docker/issues/538
-ENV JENKINS_UC_EXPERIMENTAL=https://updates.jenkins.io/experimental
-COPY plugins.txt /usr/share/jenkins/ref/plugins.txt
-COPY install-plugins-2.sh /usr/local/bin/install-plugins-2.sh
-RUN /usr/local/bin/install-plugins-2.sh < /usr/share/jenkins/ref/plugins.txt
+FROM jenkins/custom-war-packager as builder
+ENV MAVEN_OPTS=-Dmaven.repo.local=/mavenrepo
+ADD . /lcci-src
+COPY --from=mvncache /mavenrepo /mavenrepo
+RUN cd /lcci-src && make clean package
+
+FROM jenkins/jenkins:2.164.3
+MAINTAINER Oleg Nenashev <o.v.nenashev@gmail.com>
+LABEL Description="Spins up the local development environment" Vendor="FOSSi" Version="0.1"
+COPY --from=builder /lcci-src/tmp/output/target/librecores-ci-1.0-SNAPSHOT.war /usr/share/jenkins/jenkins.war
 
 COPY init_scripts/src/main/groovy/ /usr/share/jenkins/ref/init.groovy.d/
 COPY userContent ${JENKINS_HOME}/userContent/
