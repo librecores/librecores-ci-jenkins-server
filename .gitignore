@@ -1,1 +1,10 @@
 secrets
+
+# Visual Studio Code
+.vscode
+.build
+.settings
+.project
+.classpath
+.factorypath
+licenses.xml
