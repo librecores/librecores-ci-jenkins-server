@@ -8,13 +8,13 @@ WORKDIR /src
 ENV MAVEN_OPTS=-Dmaven.repo.local=/mavenrepo
 RUN mvn compile dependency:resolve dependency:resolve-plugins
 
-FROM jenkins/custom-war-packager as builder
+FROM jenkins/custom-war-packager:pr-104 as builder
 ENV MAVEN_OPTS=-Dmaven.repo.local=/mavenrepo
 ADD . /lcci-src
 COPY --from=mvncache /mavenrepo /mavenrepo
 RUN cd /lcci-src && make clean package
 
-FROM jenkins/jenkins:2.164.3
+FROM jenkins/jenkins:2.176.1
 MAINTAINER Oleg Nenashev <o.v.nenashev@gmail.com>
 LABEL Description="Spins up the local development environment" Vendor="FOSSi" Version="0.1"
 COPY --from=builder /lcci-src/tmp/output/target/librecores-ci-1.0-SNAPSHOT.war /usr/share/jenkins/jenkins.war
