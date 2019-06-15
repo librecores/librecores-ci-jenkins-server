@@ -1,13 +1,9 @@
-import com.michelin.cio.hudson.plugins.rolestrategy.RoleBasedAuthorizationStrategy
-import com.michelin.cio.hudson.plugins.rolestrategy.RoleMap
-import com.synopsys.arc.jenkins.plugins.rolestrategy.RoleType
 import hudson.security.HudsonPrivateSecurityRealm
 import jenkins.model.Jenkins
 import jenkins.security.QueueItemAuthenticatorConfiguration
 import hudson.model.*
 import org.jenkinsci.plugins.authorizeproject.GlobalQueueItemAuthenticator
 import org.jenkinsci.plugins.authorizeproject.strategy.TriggeringUsersAuthorizationStrategy
-import org.jenkinsci.plugins.rolestrategy.OwnershipBasedSecurityHelper
 import org.librecores.Users
 
 
