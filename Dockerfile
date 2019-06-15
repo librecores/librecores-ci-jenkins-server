@@ -4,8 +4,8 @@
 FROM librecores/librecores-ci-mvn-cache as mvncache
 
 FROM jenkins/custom-war-packager:pr-104 as builder
-ADD . /lcci-src
 COPY --from=mvncache /mavenrepo /mavenrepo
+ADD . /lcci-src
 WORKDIR /lcci-src
 ENV MAVEN_OPTS=-Dmaven.repo.local=/mavenrepo
 RUN java -jar /app/custom-war-packager-cli.jar -configPath packager-config.yml
