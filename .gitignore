@@ -1,5 +1,8 @@
 secrets
 
+# Intellij IDEA
+.idea
+
 # Visual Studio Code
 .vscode
 .build

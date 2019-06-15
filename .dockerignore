@@ -1,3 +1,17 @@
 tmp/
 target/
 .build
+Dockerfile
+build_cache
+
+# Intellij IDEA
+.idea
+
+# Visual Studio Code
+.vscode
+.build
+.settings
+.project
+.classpath
+.factorypath
+licenses.xml

@@ -1,18 +1,14 @@
 #
-# This is the obsolete LibreCores developer build pack
+# Builds the LibreCores CI Server Docker image.
 #
-FROM maven:3.6.0 as mvncache
-ADD pom.xml /src/pom.xml
-ADD init_scripts/pom.xml /src/init_scripts/pom.xml
-WORKDIR /src
-ENV MAVEN_OPTS=-Dmaven.repo.local=/mavenrepo
-RUN mvn compile dependency:resolve dependency:resolve-plugins
+FROM librecores/librecores-ci-mvn-cache as mvncache
 
 FROM jenkins/custom-war-packager:pr-104 as builder
-ENV MAVEN_OPTS=-Dmaven.repo.local=/mavenrepo
 ADD . /lcci-src
 COPY --from=mvncache /mavenrepo /mavenrepo
-RUN cd /lcci-src && make clean package
+WORKDIR /lcci-src
+ENV MAVEN_OPTS=-Dmaven.repo.local=/mavenrepo
+RUN java -jar /app/custom-war-packager-cli.jar -configPath packager-config.yml
 
 FROM jenkins/jenkins:2.176.1
 MAINTAINER Oleg Nenashev <o.v.nenashev@gmail.com>

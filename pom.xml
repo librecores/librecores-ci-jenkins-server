@@ -289,28 +289,6 @@
     </dependency>
   </dependencies>
 
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>io.jenkins.tools.custom-war-packager</groupId>
-        <artifactId>custom-war-packager-maven-plugin</artifactId>
-        <version>1.5</version>
-        <executions>
-          <execution>
-            <phase>package</phase>
-            <goals>
-              <goal>custom-war</goal>
-            </goals>
-            <configuration>
-              <configFilePath>packager-config.yml</configFilePath>
-              <warVersion>${project.version}</warVersion>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
-  </build>
-
   <licenses>
     <license>
       <name>The MIT License (MIT)</name>
@@ -335,5 +313,32 @@
       <url>https://repo.jenkins-ci.org/public/</url>
     </pluginRepository>
   </pluginRepositories>
+
+  <profiles>
+    <profile>
+      <id>local-build</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>io.jenkins.tools.custom-war-packager</groupId>
+            <artifactId>custom-war-packager-maven-plugin</artifactId>
+            <version>1.5</version>
+            <executions>
+              <execution>
+                <phase>package</phase>
+                <goals>
+                  <goal>custom-war</goal>
+                </goals>
+                <configuration>
+                  <configFilePath>packager-config.yml</configFilePath>
+                  <warVersion>${project.version}</warVersion>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
   
 </project>
