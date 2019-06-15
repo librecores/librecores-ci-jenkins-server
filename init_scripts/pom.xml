@@ -15,15 +15,11 @@
   <name>LibreCores CI Dev Init Scripts</name>
   <description>Initialization scripts for LibreCores CI Instance</description>
   <version>1.0-SNAPSHOT</version>
-  
-  <licenses>
-    <license>
-      <name>The MIT License (MIT)</name>
-      <url>http://opensource.org/licenses/MIT</url>
-      <distribution>repo</distribution>
-    </license>
-  </licenses>  
-  
+
+  <properties>
+    <findbugs.failOnError>false</findbugs.failOnError>
+  </properties>
+
   <build>
     <plugins>
       <plugin>
@@ -48,18 +44,5 @@
       </plugin>
     </plugins>
   </build>
-  
-  <repositories>
-    <repository>
-      <id>repo.jenkins-ci.org</id>
-      <url>https://repo.jenkins-ci.org/public/</url>
-    </repository>
-  </repositories>
-  <pluginRepositories>
-    <pluginRepository>
-      <id>repo.jenkins-ci.org</id>
-      <url>https://repo.jenkins-ci.org/public/</url>
-    </pluginRepository>
-  </pluginRepositories>
-  
+
 </project>

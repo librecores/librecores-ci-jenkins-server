@@ -7,7 +7,7 @@
   <parent>
     <groupId>org.jenkins-ci.plugins</groupId>
     <artifactId>plugin</artifactId>
-    <version>3.43</version>
+    <version>3.45</version>
   </parent>
 
   <groupId>org.librecores.librecores-ci</groupId>
@@ -63,7 +63,6 @@
       <groupId>io.jenkins.blueocean</groupId>
       <artifactId>blueocean</artifactId>
       <version>1.16.0</version>
-      <scope>provided</scope>
       <exclusions>
         <!--https://issues.jenkins-ci.org/browse/JENKINS-57546-->
         <exclusion>
@@ -243,49 +242,41 @@
       <groupId>com.synopsys.jenkinsci</groupId>
       <artifactId>ownership</artifactId>
       <version>0.12.1</version>
-      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>com.synopsys.arc.jenkinsci.plugins</groupId>
       <artifactId>job-restrictions</artifactId>
       <version>0.8</version>
-      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.jenkins-ci.plugins</groupId>
       <artifactId>role-strategy</artifactId>
       <version>2.5.1</version>
-      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.jvnet.hudson.plugins</groupId>
       <artifactId>locale</artifactId>
       <version>1.2</version>
-      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.jenkins-ci.plugins</groupId>
       <artifactId>sidebar-link</artifactId>
       <version>1.9.1</version>
-      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.jenkins-ci.plugins</groupId>
       <artifactId>log-parser</artifactId>
       <version>2.0</version>
-      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.jenkins-ci.plugins</groupId>
       <artifactId>authorize-project</artifactId>
       <version>1.3.0</version>
-      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>org.jenkins-ci.plugins</groupId>
       <artifactId>display-url-api</artifactId>
       <version>2.3.1</version>
-      <scope>provided</scope>
     </dependency>
   </dependencies>
 

@@ -6,6 +6,7 @@ build_cache
 
 # Intellij IDEA
 .idea
+*.iml
 
 # Visual Studio Code
 .vscode
@@ -15,3 +16,10 @@ build_cache
 .classpath
 .factorypath
 licenses.xml
+
+# Maven code
+target
+init_scripts/target
+
+# Custom WAR Packager
+tmp
