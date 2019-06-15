@@ -3,7 +3,7 @@
 # TODO: add a DockerHub link. librecores/librecores-ci-mvn-cache
 #
 FROM maven:3.6.0 as mvncache
-ARG LCCI_BUILD_CACHE_TAG=49089b6361834ba6a9570d84e551176d925cbd54
+ARG LCCI_BUILD_CACHE_TAG=4b415786a0dd62559c87ade781242a9f91758185
 ENV MAVEN_OPTS=-Dmaven.repo.local=/mavenrepo
 WORKDIR /src
 RUN git clone https://github.com/librecores/librecores-ci-jenkins-server.git . && git checkout ${LCCI_BUILD_CACHE_TAG}
