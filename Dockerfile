@@ -1,14 +1,19 @@
-FROM jenkins/jenkins:2.138.2
-MAINTAINER Oleg Nenashev <o.v.nenashev@gmail.com>
-LABEL Description="Spins up the local development environment" Vendor="Oleg Nenashev" Version="0.1"
+#
+# Builds the LibreCores CI Server Docker image.
+#
+FROM librecores/librecores-ci-mvn-cache as mvncache
 
-#TODO: Get rid of the experimental UC once the FileSystem SCM plugin is released
-# Use experimental UC for FileSystem SCM
-# See https://github.com/jenkinsci/docker/issues/538
-ENV JENKINS_UC_EXPERIMENTAL=https://updates.jenkins.io/experimental
-COPY plugins.txt /usr/share/jenkins/ref/plugins.txt
-COPY install-plugins-2.sh /usr/local/bin/install-plugins-2.sh
-RUN /usr/local/bin/install-plugins-2.sh < /usr/share/jenkins/ref/plugins.txt
+FROM jenkins/custom-war-packager:pr-104 as builder
+COPY --from=mvncache /mavenrepo /mavenrepo
+ADD . /lcci-src
+WORKDIR /lcci-src
+ENV MAVEN_OPTS=-Dmaven.repo.local=/mavenrepo
+RUN java -jar /app/custom-war-packager-cli.jar -configPath packager-config.yml
+
+FROM jenkins/jenkins:2.176.1
+MAINTAINER Oleg Nenashev <o.v.nenashev@gmail.com>
+LABEL Description="Spins up the local development environment" Vendor="FOSSi" Version="0.1"
+COPY --from=builder /lcci-src/tmp/output/target/librecores-ci-1.0-SNAPSHOT.war /usr/share/jenkins/jenkins.war
 
 COPY init_scripts/src/main/groovy/ /usr/share/jenkins/ref/init.groovy.d/
 COPY userContent ${JENKINS_HOME}/userContent/

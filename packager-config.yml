@@ -1,0 +1,28 @@
+bundle:
+  groupId: "org.librecores.librecores-ci"
+  artifactId: "librecores-ci"
+  vendor: "FOSSi"
+  title: "Librecores CI"
+  description: "LibreCores CI Server, powered by Jenkins"
+buildSettings:
+  docker:
+    base: "jenkins/jenkins:2.176.1"
+    tag: "librecores/librecores-ci-dev"
+    build: false
+  pom: "pom.xml"
+  pomIgnoreRoot: true
+#TODO: Move to buildSettings once CWP with the fix is there
+bomIncludeWar: true
+systemProperties:
+  jenkins.model.Jenkins.slaveAgentPort: "50000"
+  jenkins.model.Jenkins.slaveAgentPortEnforce: "true"
+  hudson.model.LoadStatistics.clock: "1000"
+groovyHooks:
+  - type: "init"
+    id: "initScripts"
+    source:
+      dir: "init_scripts/src/main/groovy"
+casc:
+  - id: "jcasc-config"
+    source:
+      dir: jenkins.yaml

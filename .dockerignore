@@ -1,4 +1,8 @@
-secrets
+tmp/
+target/
+.build
+Dockerfile
+build_cache
 
 # Intellij IDEA
 .idea

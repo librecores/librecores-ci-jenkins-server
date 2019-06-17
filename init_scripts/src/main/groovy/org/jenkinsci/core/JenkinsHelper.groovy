@@ -1,7 +1,6 @@
 package org.jenkinsci.core
 
 import hudson.security.csrf.DefaultCrumbIssuer
-import jenkins.CLI
 import jenkins.model.Jenkins
 import jenkins.security.s2m.AdminWhitelistRule
 import org.kohsuke.stapler.StaplerProxy
@@ -30,9 +29,6 @@ class JenkinsHelper {
      * Initializes the default security settings on the instance
      */
     static setupDefaultSecurity() {
-        println("--- Configuring CLI")
-        CLI.get().enabled = false
-
         println("--- Configuring Remoting and Slave2Master security")
         Jenkins.instance.agentProtocols = new HashSet<String>(["JNLP4-connect"])
         Jenkins.instance.getExtensionList(StaplerProxy.class)
