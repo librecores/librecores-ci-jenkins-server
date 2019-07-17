@@ -1,5 +1,8 @@
 # LibreCores CI
 
+[![Gitter](https://badges.gitter.im/librecores/librecores-ci.svg)](https://gitter.im/librecores/librecores-ci?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+![GitHub release](https://img.shields.io/github/release-pre/librecores/librecores-ci-jenkins-server.svg)
+
 [LibreCores CI](https://ci.librecores.org/) is a service, which hosts automation flows for the following purposes:
 
 * Continuous Integration of projects being hosted on [LibreCores](http://librecores.org/)
