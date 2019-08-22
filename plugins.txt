@@ -33,3 +33,4 @@ tap:2.2.1
 ws-cleanup:0.36
 credentials:2.1.18
 jdk-tool:1.1
+plot:2.1.1
