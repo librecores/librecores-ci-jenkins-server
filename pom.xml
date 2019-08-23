@@ -313,7 +313,7 @@
           <plugin>
             <groupId>io.jenkins.tools.custom-war-packager</groupId>
             <artifactId>custom-war-packager-maven-plugin</artifactId>
-            <version>1.5</version>
+            <version>1.7</version>
             <executions>
               <execution>
                 <phase>package</phase>
