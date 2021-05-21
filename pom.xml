@@ -71,7 +71,7 @@
     <dependency>
       <groupId>io.jenkins.blueocean</groupId>
       <artifactId>blueocean</artifactId>
-      <version>1.16.0</version>
+      <version>1.24.7</version>
       <exclusions>
         <!--https://issues.jenkins-ci.org/browse/JENKINS-57546-->
         <exclusion>
